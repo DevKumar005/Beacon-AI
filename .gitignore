@@ -1,6 +1,6 @@
 # Local Environment Secrets
-backend/.env
 .env
+backend/.env
 
 # Python Virtual Environments
 backend/venv/
@@ -12,3 +12,8 @@ __pycache__/
 # Local Vector Databases & Systems
 backend/chroma_db/
 .DS_Store
+
+.env
+backend/.env
+backend/venv/
+venv/
