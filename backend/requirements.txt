@@ -6,3 +6,4 @@ langchain-core==0.2.9
 chromadb==0.5.3
 python-dotenv==1.0.1
 gunicorn==22.0.0
+sentence-transformers==3.0.1
