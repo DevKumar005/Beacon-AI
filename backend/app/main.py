@@ -4,7 +4,6 @@ from app.api import chat
 
 app = FastAPI(title="BEACON AI Backend Engine", version="1.0.0")
 
-# Critical Hackathon Strategy: Loosen CORS rules early to avoid local testing friction
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],

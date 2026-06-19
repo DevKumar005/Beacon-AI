@@ -8,7 +8,7 @@ from app.core.schemas import ChatResponse
 load_dotenv()
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
-# The Master System Prompt (Responsible AI Guardrails)
+# Responsible AI Guardrails
 SYSTEM_INSTRUCTION = """
 You are BEACON AI, an empathetic, highly accurate assistant helping users determine eligibility for social assistance programs (like SNAP, Medicaid, Housing).
 
@@ -18,15 +18,13 @@ CRITICAL RULES:
 3. OUTPUT FORMAT: You must strictly output valid JSON matching the requested schema.
 """
 
-# Initialize Gemini 1.5 Flash with JSON mode
+# Initialize Gemini with JSON mode
 model = genai.GenerativeModel(
     model_name="gemini-3.5-flash",
     system_instruction=SYSTEM_INSTRUCTION,
     generation_config={"response_mime_type": "application/json"}
 )
 
-# In-memory dictionary to track conversational context (Session ID -> Chat Object)
-# Note: For a hackathon, in-memory is fine. For production, this would be Redis/Postgres.
 active_sessions = {}
 
 async def generate_chat_response(message: str, session_id: str, retrieved_context: str = "") -> ChatResponse:
