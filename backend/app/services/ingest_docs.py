@@ -1,12 +1,9 @@
 import os
-from app.services.chroma_service import collection
+from app.services.chroma_service import chroma_client, collection
 
 def chunk_text(text: str, chunk_size: int = 1000, overlap: int = 200) -> list:
-    """Splits text into overlapping chunks so sentences don't get cut in half."""
     words = text.split()
     chunks = []
-    
-    # Simple word-based sliding window strategy
     i = 0
     while i < len(words):
         chunk_words = words[i:i + chunk_size]
@@ -14,22 +11,34 @@ def chunk_text(text: str, chunk_size: int = 1000, overlap: int = 200) -> list:
         i += chunk_size - overlap
         if i >= len(words) or len(chunk_words) < chunk_size:
             break
-            
     return chunks
 
 def run_ingestion():
     docs_dir = "../data/eligibility_docs"
     
     if not os.path.exists(docs_dir):
-        print(f"❌ Error: The directory '{docs_dir}' does not exist yet. Ask Member 3 to push it, or create it locally to test.")
+        print(f"❌ Error: The directory '{docs_dir}' does not exist.")
         return
 
     files = [f for f in os.listdir(docs_dir) if f.endswith('.txt')]
     if not files:
-        print("⚠️ No raw text files found inside data/eligibility_docs/. Add a dummy file to test.")
+        print("⚠️ No raw text files found inside data/eligibility_docs/.")
         return
 
-    print(f"📖 Found {len(files)} policy files. Starting vector database injection...")
+    print("🧹 Cleaning out old vector documents from collection...")
+    try:
+        chroma_client.delete_collection("eligibility_rules")
+    except Exception:
+        pass
+    
+    # Re-fetch or re-create clean collection
+    from app.services.chroma_service import sentence_transformer_ef
+    clean_collection = chroma_client.get_or_create_collection(
+        name="eligibility_rules",
+        embedding_function=sentence_transformer_ef
+    )
+
+    print(f"📖 Found {len(files)} policy files. Executing clean database load...")
 
     global_id_counter = 0
     for filename in files:
@@ -37,11 +46,9 @@ def run_ingestion():
         with open(file_path, 'r', encoding='utf-8') as f:
             raw_content = f.read()
 
-        # Split document text into chunks
         text_chunks = chunk_text(raw_content)
-        print(f"📄 Processing '{filename}': Broken down into {len(text_chunks)} segments.")
+        print(f"📄 Processing '{filename}': Created {len(text_chunks)} segments.")
 
-        # Batch write data into ChromaDB
         documents = []
         metadatas = []
         ids = []
@@ -52,14 +59,13 @@ def run_ingestion():
             ids.append(f"doc_{filename}_{i}_{global_id_counter}")
             global_id_counter += 1
 
-        # Push to ChromaDB collection using our default all-MiniLM-L6-v2 embedding pipeline
-        collection.add(
+        clean_collection.add(
             documents=documents,
             metadatas=metadatas,
             ids=ids
         )
 
-    print(f"✅ Ingestion complete! Total items added to local database vector store: {collection.count()}")
+    print(f"✅ Ingestion complete! Current clean vector count: {clean_collection.count()}")
 
 if __name__ == "__main__":
     run_ingestion()
