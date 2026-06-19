@@ -1,0 +1,14 @@
+# Local Environment Secrets
+backend/.env
+.env
+
+# Python Virtual Environments
+backend/venv/
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Local Vector Databases & Systems
+backend/chroma_db/
+.DS_Store
