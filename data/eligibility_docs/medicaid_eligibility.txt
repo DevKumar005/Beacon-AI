@@ -1,0 +1,33 @@
+================================================================================
+STATE MEDICAID COMPLIANCE AND MODIFIED ADJUSTED GROSS INCOME (MAGI) MANUAL
+================================================================================
+SECTION 1: GENERAL ELIGIBILITY CRITERIA
+Medicaid is a state-administered, federally funded healthcare program designed to provide medical coverage to low-income individuals, families, children, pregnant women, the elderly, and individuals with documented disabilities.
+
+SECTION 2: MODIFIED ADJUSTED GROSS INCOME (MAGI) METHODOLOGY
+For the majority of non-elderly, non-disabled applicants, eligibility is calculated utilizing the Modified Adjusted Gross Income (MAGI) methodology. MAGI mirrors federal tax logic and explicitly relies on income parameters rather than asset checks.
+
+A. Income Thresholds and Categorical Eligibility:
+1. Pregnant Women: Eligible up to a higher threshold (typically 138% to 200% of the FPL depending on state-specific expansion rules) to support prenatal care. Pregnancy forms a categorical eligibility path where income requirements are expanded.
+2. Children under 19: Eligible under expanded thresholds to guarantee pediatric coverage.
+3. Adults (Aged 19-64): In states that participated in ACA Medicaid expansion, non-elderly adults qualify if their total validated household income falls at or below 138 percent of the FPL.
+
+B. Countable versus Disregarded Income:
+MAGI counting rules are strict:
+1. Countable Income: Earned wages, net self-employment earnings, taxable pensions, taxable interest, and seasonal work spikes (evaluated against annual averages).
+2. Military and Veteran Compensation: Veteran Disability Compensation payments are legally classified as non-taxable income by the IRS and are completely disregarded under MAGI rules. They must not be counted toward the FPL limit. VA pensions, however, may be counted depending on specific program details.
+
+C. Resource and Asset Checks under MAGI:
+Under federal statutory layout, there is no asset test or resource limit for individuals evaluated under the MAGI path. The system cannot look at checking accounts, savings accounts, or personal wealth if the applicant fits standard adult, child, or pregnancy coverage rules.
+
+SECTION 3: NON-MAGI MEDICAID (AGED, BLIND, AND DISABLED)
+Individuals who do not fit standard adult expansion rules because they are 65 or older, blind, or permanently disabled are evaluated under Non-MAGI criteria.
+1. Asset Test: Non-MAGI paths require strict asset evaluation. Individual liquid assets must remain under $2,000; couple assets must remain under $3,000.
+2. SSI Recipient Bypasses: Individuals actively receiving Supplemental Security Income (SSI) are automatically and categorically eligible for Medicaid in most jurisdictions. The local engine must auto-approve and bypass separate financial or asset verification for active SSI recipients.
+
+SECTION 4: DEMOGRAPHIC VULNERABILITY PROTECTION RULES
+A. Mixed-Status Immigrant Households:
+Undocumented adults are ineligible for full-scope federal Medicaid coverage and may only receive Emergency Medicaid (covering life-threatening emergencies and labor/delivery costs). However, their legal permanent resident or citizen children retain independent eligibility pathways. System logic must evaluate the children's applications independently of the parent's citizenship status.
+
+B. Housing Instability and Unhoused Rules:
+A permanent physical address is not required to apply for or receive Medicaid benefits.  Applicants may declare themselves unhoused and use a local shelter, caseworker address, or public drop site to satisfy administrative contact metrics. Software triggers must not flag a lack of a permanent address as a cause for automatic case rejection.
