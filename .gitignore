@@ -1,8 +1,7 @@
-# .gitignore for BEACON AI Project Root
-
-# Python environments
+# Python Virtual Environments & Packages
 venv/
 .venv/
+env/
 __pycache__/
 *.pyc
 *.pyo
@@ -14,11 +13,11 @@ __pycache__/
 *.db
 *.sqlite3
 
-# Credentials, Keys and Configuration Secrets
+# Environment Configurations & Secret Keys
 .env
 .env.local
 secrets.json
 
-# Operating System Garbage
+# Operating System Files
 .DS_Store
 Thumbs.db

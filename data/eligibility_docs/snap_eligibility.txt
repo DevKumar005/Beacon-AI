@@ -24,7 +24,7 @@ Households are restricted to specific liquid and non-liquid asset limitations:
 
 SECTION 3: IMMIGRATION, CITIZENSHIP, AND HOUSEHOLD PRORATING RULES
 A. Citizen and Non-Citizen Status Rules:
-U.S. citizens, legal political asylees, and refugees are eligible for immediate program evaluation without waiting periods. Fictional user profiles testing asylees must bypass waiting bars.
+U.S.citizens, legal political asylees, and refugees are eligible for immediate program evaluation without waiting periods. Fictional user profiles testing asylees must bypass waiting bars.
 
 B. Lawful Permanent Residents (LPR):
 Adult immigrants holding Lawful Permanent Resident (LPR) status (Green Card holders) are legally barred from receiving federal SNAP benefits for a continuous period of 5 years from their documented date of entry or status adjustment. 

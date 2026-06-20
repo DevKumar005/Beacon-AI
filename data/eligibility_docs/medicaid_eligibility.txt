@@ -30,4 +30,4 @@ A. Mixed-Status Immigrant Households:
 Undocumented adults are ineligible for full-scope federal Medicaid coverage and may only receive Emergency Medicaid (covering life-threatening emergencies and labor/delivery costs). However, their legal permanent resident or citizen children retain independent eligibility pathways. System logic must evaluate the children's applications independently of the parent's citizenship status.
 
 B. Housing Instability and Unhoused Rules:
-A permanent physical address is not required to apply for or receive Medicaid benefits. Applicants may declare themselves unhoused and use a local shelter, caseworker address, or public drop site to satisfy administrative contact metrics. Software triggers must not flag a lack of a permanent address as a cause for automatic case rejection.
+A permanent physical address is not required to apply for or receive Medicaid benefits.  Applicants may declare themselves unhoused and use a local shelter, caseworker address, or public drop site to satisfy administrative contact metrics. Software triggers must not flag a lack of a permanent address as a cause for automatic case rejection.
