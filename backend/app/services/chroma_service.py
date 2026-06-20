@@ -4,7 +4,7 @@ from chromadb.utils import embedding_functions
 # Initialize a local persistent ChromaDB client inside the backend folder
 chroma_client = chromadb.PersistentClient(path="./chroma_db")
 
-# Use the lightweight MiniLM embedding model as requested
+# Use the lightweight MiniLM embedding model
 sentence_transformer_ef = embedding_functions.SentenceTransformerEmbeddingFunction(model_name="all-MiniLM-L6-v2")
 
 # Create or load the document collection
