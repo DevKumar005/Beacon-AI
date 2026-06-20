@@ -1,24 +1,39 @@
-import uuid
-from fastapi import APIRouter, HTTPException
+import os
+from fastapi import APIRouter
 from app.core.schemas import ChatRequest, ChatResponse
 from app.services.gemini_service import generate_chat_response
-from app.services.chroma_service import query_documents
+from dotenv import load_dotenv
+
+load_dotenv()
 
 router = APIRouter()
 
+# 1. Start with empty variables so the server boots in 0.5 seconds
+embeddings = None
+db = None
+
+# 2. "Lazy Load" the model only when it is actually needed
+def get_db():
+    global embeddings, db
+    if db is None:
+        print("⏳ First request detected: Loading heavy embedding model into memory...")
+        from langchain_community.embeddings import HuggingFaceEmbeddings
+        from langchain_community.vectorstores import Chroma
+        
+        CHROMA_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "chroma_db")
+        embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+        db = Chroma(persist_directory=CHROMA_PATH, embedding_function=embeddings)
+        print("✅ Model loaded successfully!")
+    return db
+
+def query_documents(query: str, n_results: int = 2) -> str:
+    # Safely fetch the database (will load it if it's the first time)
+    database = get_db()
+    results = database.similarity_search(query, k=n_results)
+    return "\n---\n".join([doc.page_content for doc in results])
+
 @router.post("/chat", response_model=ChatResponse)
-async def process_chat(payload: ChatRequest):
-    try:
-        # 1. Assign a session ID if the frontend didn't provide one
-        session_id = payload.session_id or str(uuid.uuid4())
-        # 2. Query ChromaDB for relevant RAG context based on user message
-        retrieved_context = query_documents(payload.message)
-        # 3. Generate the response using Gemini
-        ai_response = await generate_chat_response(
-            message=payload.message,
-            session_id=session_id,
-            retrieved_context=retrieved_context
-        )
-        return ai_response
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+async def chat_endpoint(request: ChatRequest):
+    retrieved_context = query_documents(request.message)
+    response = await generate_chat_response(request.message, request.session_id, retrieved_context)
+    return response
