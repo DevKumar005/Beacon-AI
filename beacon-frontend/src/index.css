@@ -3,7 +3,6 @@
 @theme {
   --animate-wave: wave 20s infinite linear;
 }
-
 @keyframes wave {
   0% {
     transform: rotate(0deg);
