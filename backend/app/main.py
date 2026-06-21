@@ -4,29 +4,13 @@ from app.api import chat
 
 app = FastAPI(title="BEACON AI Backend Engine", version="1.0.0")
 
-# Explicitly declare permitted URLs comprehensively
-origins = [
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
-    "http://localhost:5174",
-    "http://127.0.0.1:5174",
-]
-
+# Bulletproof CORS: allow EVERYTHING by disabling credentials requirement
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,       
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-]
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,       # Applied the permitted list here
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins=["*"],           # Allows every origin unconditionally
+    allow_credentials=False,       # CRITICAL: Must be False for wildcard (*) to work on cloud hosts
+    allow_methods=["*"],           # Allows all methods (POST, GET, OPTIONS, etc.)
+    allow_headers=["*"],           # Allows all custom headers
 )
 
 app.include_router(chat.router, prefix="/api", tags=["Core Chat Routing Engine"])
