@@ -8,7 +8,9 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-router = APIRouter()
+# CRITICAL FIX 3: Turn off strict slashes at the router level
+# This means both "/api/chat" and "/api/chat/" will map successfully without throwing a 405
+router = APIRouter(strict_slashes=False)
 
 # 1. Initialize Google Embeddings 
 embeddings = GoogleGenerativeAIEmbeddings(

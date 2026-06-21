@@ -1,29 +1,30 @@
-from fastapi import FastAPI, Response
-from fastapi.middleware.cors import CORSMiddleware
+from fastapi import FastAPI, Request, Response
 from app.api import chat
 
-# 1. Turn off strict trailing slashes globally
+# CRITICAL FIX 1: strict_slashes=False prevents 307 redirects that drop CORS headers
 app = FastAPI(title="BEACON AI Backend Engine", version="1.0.0", strict_slashes=False)
 
-# 2. Add the baseline middleware configuration
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=False,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+# CRITICAL FIX 2: The Silver Bullet Hack
+# Catch all traffic at the ASGI entry point level to force CORS headers onto every single packet
+@app.middleware("http")
+async def force_global_cors_bypass(request: Request, call_next):
+    # 1. If it's a browser preflight OPTIONS request, short-circuit it immediately with a 200 OK
+    if request.method == "OPTIONS":
+        response = Response(status_code=200)
+        response.headers["Access-Control-Allow-Origin"] = "*"
+        response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
+        response.headers["Access-Control-Allow-Headers"] = "*"
+        response.headers["Access-Control-Max-Age"] = "86400"
+        return response
 
-# 3. ABSOLUTE BULLETPROOF BYPASS: Manually intercept all preflight OPTIONS requests
-@app.options("/{path:path}")
-async def preflight_handler(path: str):
-    response = Response()
+    # 2. For standard POST/GET requests, process the route and forcibly stamp the headers
+    response = await call_next(request)
     response.headers["Access-Control-Allow-Origin"] = "*"
-    response.headers["Access-Control-Allow-Methods"] = "POST, GET, OPTIONS, PUT, DELETE"
+    response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
     response.headers["Access-Control-Allow-Headers"] = "*"
     return response
 
-# 4. Include your core endpoints router
+# Include the router downstream of our entry-point interceptor
 app.include_router(chat.router, prefix="/api", tags=["Core Chat Routing Engine"])
 
 @app.get("/")
