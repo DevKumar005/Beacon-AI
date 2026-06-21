@@ -1,7 +1,7 @@
 fastapi
 uvicorn
 pydantic
-google-generativeai
+google-genai
 langchain
 langchain-core
 langchain-google-genai
