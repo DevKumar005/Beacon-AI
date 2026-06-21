@@ -4,11 +4,21 @@ from app.api import chat
 
 app = FastAPI(title="BEACON AI Backend Engine", version="1.0.0")
 
-# Explicitly declare permitted URLs instead of using "*"
+# Explicitly declare permitted URLs comprehensively
 origins = [
-    "http://localhost:5173",    # Member 2's local development server
-    "http://127.0.0.1:5173",    # Local loopback address fallback
-    # Add Member 2's Vercel production URL here once they deploy it!
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "http://localhost:5174",
+    "http://127.0.0.1:5174",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,       
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 ]
 
 app.add_middleware(
