@@ -1,0 +1,23 @@
+# Python Virtual Environments & Packages
+venv/
+.venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+
+# Local Vector Database Binaries
+**/chroma_db/
+*.db
+*.sqlite3
+
+# Environment Configurations & Secret Keys
+.env
+.env.local
+secrets.json
+
+# Operating System Files
+.DS_Store
+Thumbs.db
