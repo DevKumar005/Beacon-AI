@@ -1,0 +1,21 @@
+[
+  {
+    "scenario": "Clear Qualifier",
+    "reply": "Based on your situation, you may qualify for SNAP benefits.",
+    "eligibility_status": "may_qualify",
+    "matched_programs": ["SNAP", "Medicaid"],
+    "reasons": [
+      "Your household income is below 130% of the federal poverty level",
+      "Your household size of 4 qualifies under SNAP guidelines"
+    ],
+    "next_steps": [
+      "Visit benefits.gov to begin your application",
+      "Contact your local SNAP office for an appointment"
+    ],
+    "source": "SNAP Eligibility Rules §273.9",
+    "confidence": "medium",
+    "human_referral": false,
+    "follow_up_expected": false,
+    "suggested_input_chips": []
+  }
+]

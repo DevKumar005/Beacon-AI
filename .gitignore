@@ -21,3 +21,4 @@ secrets.json
 # Operating System Files
 .DS_Store
 Thumbs.db
+backend/venv/
