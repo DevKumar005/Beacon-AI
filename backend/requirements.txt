@@ -1,0 +1,15 @@
+fastapi
+uvicorn
+pydantic
+google-generativeai
+google-genai
+langchain
+langchain-core
+langchain-google-genai
+langchain-pinecone
+pinecone-client
+python-dotenv
+gunicorn
+numpy
+scipy
+httpx
