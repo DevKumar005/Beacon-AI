@@ -13,6 +13,20 @@ BEACON AI is an AI-powered reasoning engine that helps individuals, families, an
 Deployed on ()
 
 ---
+ 
+## ⚠️ Hackathon Submission Note
+ 
+> **Frontend and backend were developed in parallel and are both fully functional as standalone components. Due to time constraints at the end of the hackathon submission window, the two layers were not integrated before the deadline.**
+ 
+The repositories are structured and ready for connection — the API contract is defined, environment variables are documented, and both services run independently. Full integration is the immediate next step post-submission.
+ 
+| Component | Status | Location |
+|-----------|--------|----------|
+| **Backend** (FastAPI + RAG pipeline) | ✅ Complete & deployed | `backend/` |
+| **Frontend** (React + Vite) | ✅ Almost Complete | `frontend/` |
+| **Frontend ↔ Backend Integration** | 🔄 Pending | — |
+ 
+---
 
 ## 🎯 The Problem
 
