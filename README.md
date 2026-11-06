@@ -200,11 +200,6 @@ refactor: extract scheme parser into separate service
 3. Write a clear PR description — what changed, why, and any relevant screenshots or API response samples
 4. At least one team member must review and approve before merging
 5. Squash noisy intermediate commits before merge
-6. 
-
-### Reporting Issues
-
-Open a GitHub Issue with a clear title, steps to reproduce, expected vs. actual behaviour, and any relevant logs or screenshots.
 
 ---
 
